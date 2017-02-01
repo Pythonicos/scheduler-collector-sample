@@ -69,7 +69,7 @@ target/
 # IPython Notebook
 .ipynb_checkpoints
 
-.idea/
+sample1/.idea/
 
 # pyenv
 .python-version
