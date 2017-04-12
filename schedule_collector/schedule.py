@@ -1,0 +1,2 @@
+class SchedulerCollector:
+    pass
