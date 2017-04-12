@@ -1,2 +1,0 @@
-class SchedulerCollector:
-    pass
