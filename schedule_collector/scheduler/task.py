@@ -1,6 +1,8 @@
 from datetime import datetime
 from typing import Callable
 
+from schedule_collector.scheduler.exceptions import TaskMethodNotImplementedError
+
 
 class TaskDaysOfWeek:
     EVERYDAY = 127
@@ -32,11 +34,18 @@ class Task:
         self.frequency = frequency
         self.repeated = repeated
         self.days_week = days_of_week
-        self.handler = handler
+        self._handler = handler
+
+    @property
+    def handler(self) -> Callable:
+        if self._handler:
+            return self._handler
+        raise TaskMethodNotImplementedError()
 
     @property
     def execute_today(self):
         return datetime.today().isoweekday() & 2 != 0
 
-    def run(self):
-        pass
+    def run(self, force: bool = True):
+        if force or self.execute_today:
+            self.handler()
